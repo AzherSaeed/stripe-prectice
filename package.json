@@ -1,0 +1,14 @@
+{
+  "name": "stripe",
+  "version": "1.0.0",
+  "description": "stripe inegration prectise",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "done"
+  ],
+  "author": "azher",
+  "license": "ISC"
+}
