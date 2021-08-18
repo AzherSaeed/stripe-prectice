@@ -48,7 +48,7 @@ import React, {useState} from 'react';
 	    } else {
 	      // The payment has been processed!
 	      if (result.paymentIntent.status === 'succeeded') {
-	        console.log('Money is in the bank!');
+	        console.log('Money is in the bank ok!');
 	        // Show a success message to your customer
 	        // There's a risk of the customer closing the window before callback
 	        // execution. Set up a webhook or plugin to listen for the
