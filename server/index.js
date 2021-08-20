@@ -28,4 +28,30 @@ app.post('/pay', async (req, res) => {
     res.json({ 'client_secret': paymentIntent['client_secret'] })
 })
 
+
+app.post('/sub' , async (req, res) => {
+    const {email , payment_method} = req.body
+
+    const customer = await stripe.customers.create({
+        payment_method : payment_method,
+        email : email,
+        invoice_setting: {
+            default_payment_method : payment_method
+        },
+    });
+
+    const subcriptions = await stripe.subcriptions.create({
+        customer : customer.id,
+        item : [{plan : 'price_1JPnxPAIsBBwEZbsQVzVOqKi'}],
+        expand : ['latest_invoice.payment_intent']
+    })
+
+    const status = subcriptions['latest_invoice']['payment_intent']['status']
+    const client_secret = subcriptions['latest_invoice']['payment_intent']['client_secret']
+
+    res.json({'client_secret' : client_secret , 'status' : status })
+});
+
+
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
