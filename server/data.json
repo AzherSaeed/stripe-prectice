@@ -1,0 +1,27 @@
+{
+  "id": "cus_K5kjjE2tnXI4Ys",
+  "object": "customer",
+  "address": null,
+  "balance": 0,
+  "created": 1629710000,
+  "currency": null,
+  "default_source": null,
+  "delinquent": false,
+  "description": null,
+  "discount": null,
+  "email": "zaptaa99@gmail.com",
+  "invoice_prefix": "4209F2CE",
+  "invoice_settings": {
+    "custom_fields": null,
+    "default_payment_method": "pm_1JRZDWAIsBBwEZbsg1bMqu2i",
+    "footer": null
+  },
+  "livemode": false,
+  "metadata": {},
+  "name": null,
+  "next_invoice_sequence": 1,
+  "phone": null,
+  "preferred_locales": [],
+  "shipping": null,
+  "tax_exempt": "none"
+}

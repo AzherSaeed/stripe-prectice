@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// MUI Components
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
-// stripe
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
-// Util imports
 import { makeStyles } from '@material-ui/core/styles';
-// Custom Components
 import PaymentForm from './PaymentForm';
 
 
 
 function HomePage() {
 	const classes = useStyles();
-	// State
 	const [email, setEmail] = useState('');
 
 	const stripe = useStripe();
@@ -24,8 +19,6 @@ function HomePage() {
 
 	const handleSubmitpay = async (event) => {
 		if (!stripe || !elements) {
-			// Stripe.js has not yet loaded.
-			// Make sure to disable form submission until Stripe.js has loaded.
 			return;
 		}
 
@@ -43,17 +36,10 @@ function HomePage() {
 		});
 
 		if (result.error) {
-			// Show error to your customer (e.g., insufficient funds)
 			console.log(result.error.message);
 		} else {
-			// The payment has been processed!
 			if (result.paymentIntent.status === 'succeeded') {
 				console.log('Money is in the bank ok!', result.paymentIntent);
-				// Show a success message to your customer
-				// There's a risk of the customer closing the window before callback
-				// execution. Set up a webhook or plugin to listen for the
-				// payment_intent.succeeded event that handles any business critical
-				// post-payment actions.
 			}
 		}
 	};
@@ -61,8 +47,6 @@ function HomePage() {
 
 	const handleSubmitSub = async (event) => {
 		if (!stripe || !elements) {
-			// Stripe.js has not yet loaded.
-			// Make sure to disable form submission until Stripe.js has loaded.
 			return;
 		}
 
@@ -77,8 +61,7 @@ function HomePage() {
 		if (result.error) {
 			console.log(result.error.message);
 		} else {
-			const res = await axios.post('http://localhost:3000/sub', { 'payment_method': result.paymentMethod.id, 'email': email });
-			// eslint-disable-next-line camelcase
+			const res = await axios.post('http://localhost:5000/sub', { 'payment_method': result.paymentMethod.id, 'email': email });
 			const { client_secret, status } = res.data;
 
 			if (status === 'requires_action') {
@@ -86,17 +69,12 @@ function HomePage() {
 					if (result.error) {
 						console.log('There was an issue!');
 						console.log(result.error);
-						// Display error message in your UI.
-						// The card was declined (i.e. insufficient funds, card has expired, etc)
 					} else {
-						console.log('You got the money!');
-						// Show a success message to your customer
+						console.log('You got the money one!', status);
 					}
 				});
 			} else {
-				console.log('You got the money!');
-				// No additional information was needed
-				// Show a success message to your customer
+				console.log('You got the money two!' , res.data);
 			}
 		}
 
